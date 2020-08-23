@@ -85,7 +85,11 @@ class Bot < ApplicationRecord
         current_tweet = Bot.update(text)
 
         # provide tweet source and party affiliation
-        reply_text = "Tweet is from @#{screen_name}. #{fed.party} #{fed.position.capitalize} from #{fed.state}"
+        party = fed.party
+        if party == "Democrat"
+            party = "Democratic"
+        end
+        reply_text = "Tweet is from @#{screen_name}. #{party} #{fed.position.capitalize} from #{fed.state}"
         if truncated
             reply_text = reply_text + ". Tweet was TRUNCATED. Visit tweet author for full text"
         end
